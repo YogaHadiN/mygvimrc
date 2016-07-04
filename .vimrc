@@ -8,13 +8,7 @@ let mapleader=","
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
-set tabstop=4
-set linespace=2
-" when indenting with '>', use 4 spaces width
-set shiftwidth=1
-" On pressing tab, insert 4 spaces
-set expandtab                    
-set softtabstop=4
+set ts=4 sts=4 sw=4 noexpandtab
 
 set noerrorbells visualbell t_vb=    "Hilangkan suara error Bell
 so /etc/vim/plugins.vim
