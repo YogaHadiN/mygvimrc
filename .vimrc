@@ -5,6 +5,7 @@ set guifont=Monospace\ 10
 set showbreak=------->>>>>
 let mapleader=","
 
+autocmd BufNewFile,BufRead *.blade.php setlocal ft=html
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -48,8 +49,12 @@ set encoding=utf-8 "Selalu tunjukkan encoding"
 abbrev gm !php artisan make:model
 abbrev gc !php artisan make:controller
 abbrev gmig !php artisan make:migration
-
-
+abbrev gs !php artisan make:seeder
+abbrev ar !php artisan make:
+abbrev ds !find ./ -type f -name "\.*sw[klmnop]" -delete
+abbrev gga !git add .
+abbrev ggc !git commit -m "
+abbrev ggp !git push
 
 "Bikin supaya gampang mengedit vimrc
 " ------------- Mtabedit $MYVIMRCapping ---------------"
@@ -60,18 +65,23 @@ vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
+"Bikin mempermudah memblok 1 method
+nmap <Leader>vm Vf{%
+"Bikin mempermudah yank 1 method
+nmap <Leader>ym Vf{%y
+"Bikin edit vimrc
 nmap <Leader>ev :tabedit $MYVIMRC<cr>
 "Bikin supaya gampang menghilangkan highlight di pencarian
 nmap ,<space> :nohlsearch<cr>
 "Buat supaya toggle NERDTree lebih mudah
 nmap <C-1> :NERDTreeToggle<cr>
 "Buat BufTag Lebih mudah
-nmap <C-r> :CtrlPBufTag<cr>
+nmap <C-a> :CtrlPBufTag<cr>
 "Ke File yang baru2 ini dilihat
 nmap <C-e> :CtrlPMRUFiles<cr>
 "Buat CtrlP sama 
 "Buat supaya bisa save file saat insert mode
-noremap <C-P> <Esc>:CtrlP /var/www/kje<cr>
+noremap <C-p> <Esc>:CtrlP /var/www/larapus<cr>
 "Buat CtrlS untuk ngesave
 nmap <C-s> :w!<cr>
 "Buat supaya lebih mudah save smua file
@@ -81,6 +91,7 @@ nmap <Leader>O o<Esc>k
 "Pengganti Command + Shift + Find di Vim
 nmap ,ff :GitGrep<Space>
 "Align Seperti Sublim
+vmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 map <Leader>w H<Plug>(easymotion-w)
@@ -131,7 +142,7 @@ vnoremap // y/<C-R>"<CR>
 nmap <Leader>t :!phpunit %<cr>
 
 "Buat langsung ke direktori project saat buka mvim
-nmap <Leader>pp :cd ~/Code/kje/<cr>:Ag ''<Left>
+nmap <Leader>pp :cd /var/www/kje/<cr>:Ag ''<Left>
 "Ulangi Scan Folder Tree untuk Ctrl p
 nmap <Leader>cp :CtrlPClearCache<cr>
 
@@ -201,7 +212,7 @@ nnoremap <Leader>d :call pdv#DocumentWithSnip()<CR>
 "  G - pindah ke karakter terakhir dair file
 "  Command + Control F -> keluar atau masuk ke full screen
 "  control + ] -> pergi ke asal dipanggilnya function ini 
-"  v -> untuk indent
+"  v -> untuk in ent
 "  Pindah ke baris nomo 42 -> 42gg
 "  dash(-) untuk tujukkan folder
 "  cw - change word, edit satu kata
