@@ -261,3 +261,4 @@ nnoremap <Leader>d :call pdv#DocumentWithSnip()<CR>
 " * mencari kata selanjutnya yang sama dengan kata di bawah kursor
 " # mencari kata sebelumnya yang sama dengan kata di bawah kursor
 " '. kembali ke terakhir kali teks diedit
+" ; mengulangi yang dilakukan pencarian karakter dengan f
