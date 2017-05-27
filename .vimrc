@@ -39,6 +39,13 @@ set guioptions-=l
 set guioptions-=l
 set guioptions-=r
 set guioptions-=R
+ 
+" ------------- Nerd Commenter  ---------------"
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " ------------- PowerLine ---------------"
 let g:Powerline_symbols = 'fancy'
@@ -52,7 +59,7 @@ abbrev gmig !php artisan make:migration
 abbrev gs !php artisan make:seeder
 abbrev ar !php artisan make:
 abbrev ds !find ./ -type f -name "\.*sw[klmnop]" -delete
-abbrev gga !git add .
+abbrev gga !git add -A
 abbrev ggc !git commit -m "
 abbrev ggp !git push
 
@@ -142,7 +149,7 @@ vnoremap // y/<C-R>"<CR>
 nmap <Leader>t :!phpunit %<cr>
 
 "Buat langsung ke direktori project saat buka mvim
-nmap <Leader>pp :cd /var/www/kje/<cr>:Ag ''<Left>
+nmap <Leader>pp :cd /var/www/asklin/<cr>:Ag ''<Left>
 "Ulangi Scan Folder Tree untuk Ctrl p
 nmap <Leader>cp :CtrlPClearCache<cr>
 

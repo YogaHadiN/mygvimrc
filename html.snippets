@@ -1599,3 +1599,55 @@ snippet table-responsive
 	</div>
 snippet paginate
 	<?php echo $${1}->appends(Input::except('page'))->links(); ?>
+snippet rcfg
+	<div class="row">
+		<div class="col-xs-12 col-sm-${1:12} col-md-$1 col-lg-$1">
+			<div class="form-group @if($errors->has('${2:name}'))has-error @endif">
+			  {!! Form::label('$2', '${3:Nama}', ['class' => 'control-label']) !!}
+				{!! Form::${4:text}('$2', ${5:lists-select-only,} ${6:null}, array(
+					'class'         => 'form-control${7}'
+				))!!}
+			  @if($errors->has('$2'))<code>{{ $errors->first('$2') }}</code>@endif
+			</div>
+		</div>
+	</div>
+snippet Form-submit
+	<div class="row">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<button class="btn btn-success btn-block" type="button" onclick='dummySubmit(this);return false;'>Submit</button>
+			{!! Form::submit('Submit', ['class' => 'btn btn-success hide', 'id' => 'submit']) !!}
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<a class="btn btn-danger btn-block" href="{{ url('laporans') }}">Cancel</a>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		function dummySubmit(control){
+			if(validatePass2(control)){
+				$('#submit').click();
+			}
+		}
+	</script>
+snippet panel
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">${1}</h3>
+		</div>
+		<div class="panel-body">
+			${2}
+		</div>
+	</div>
+snippet rc
+	<div class="row">
+		<div class="col-xs-12 col-sm-${1} col-md-$1 col-lg-$1">
+			${2}
+		</div>
+	</div>
+snippet c
+	<div class="col-xs-12 col-sm-${1} col-md-$1 col-lg-$1">
+		${2}
+	</div>
+snippet r
+	<div class="row">
+		${1}
+	</div>
