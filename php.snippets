@@ -757,3 +757,7 @@ snippet timestamp
 snippet timestamp_array
 	'created_at' => $timestamp,
 	'updated_at' => $timestamp
+snippet view
+	return view('${1}', compact(
+		'${2}'
+	));

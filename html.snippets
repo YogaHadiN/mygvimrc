@@ -1651,3 +1651,38 @@ snippet r
 	<div class="row">
 		${1}
 	</div>
+snippet form-image
+	<div class="form-group{{ $errors->has('${1}') ? ' has-error' : '' }}">
+		{!! Form::label('$1', '${2}') !!}
+		{!! Form::file('$1') !!}
+			@if (isset($${3}) && $$3->${4})
+				<p> {!! Html::image(asset($$3->$1), null, ['class'=>'img-rounded upload']) !!} </p>
+			@else
+				<p> {!! Html::image(asset('img/photo_not_available.png'), null, ['class'=>'img-rounded upload']) !!} </p>
+			@endif
+		{!! $errors->first('$1', '<p class="help-block">:message</p>') !!}
+	</div>
+snippet accordion
+	<div class="panel-group" id="${1:panel_group_id}" role="tablist" aria-multiselectable="true">
+		@foreach( $${2:variable} as $k => $${3:value} )
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="$1_heading{{ $k }}">
+					<h4 class="panel-title">
+						<a role="button" data-toggle="collapse" data-parent="#$1" href="#$1_collapse{{ $k }}" aria-expanded="true" aria-controls="$1_collapse{{ $k }}"
+
+						   @if( !$k )
+							   class="collapsed" 
+						   @endif
+						>
+						${4:TITLE}
+						</a>
+					</h4>
+				</div>
+				<div id="$1_collapse{{ $k }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="$1_heading{{ $k }}">
+					<div class="panel-body">
+						${5:CONTENT}
+					</div>
+				</div>
+			</div>
+		@endforeach
+	</div>
