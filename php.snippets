@@ -761,3 +761,7 @@ snippet view
 	return view('${1}', compact(
 		'${2}'
 	));
+snippet query
+	$query  = "SELECT ${1}";
+	$query .= "FROM ${2}";
+	$data = DB::select($query);

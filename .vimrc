@@ -149,7 +149,7 @@ vnoremap // y/<C-R>"<CR>
 nmap <Leader>t :!phpunit %<cr>
 
 "Buat langsung ke direktori project saat buka mvim
-nmap <Leader>pp :cd /var/www/asklin/<cr>:Ag ''<Left>
+nmap <Leader>pp :cd /var/www/kje/<cr>:Ag ''<Left>
 "Ulangi Scan Folder Tree untuk Ctrl p
 nmap <Leader>cp :CtrlPClearCache<cr>
 
