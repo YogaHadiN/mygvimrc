@@ -791,12 +791,9 @@ snippet template_method
 		if ($this->valid( Input::all() )) {
 			return $this->valid( Input::all() );
 		}
-
 		$$3                    = new $1;
 		$$3->${4}           = $request->$4;
 		$$3->save();
-
-
 		$pesan = Yoga::suksesFlash('$1 baru berhasil dibuat');
 		return redirect('$2')->withPesan($pesan);
 	}
@@ -804,12 +801,9 @@ snippet template_method
 		if ($this->valid( Input::all() )) {
 			return $this->valid( Input::all() );
 		}
-
 		$$3     = $1::find($id);
 		$$3->$4 = $request->$4;
 		$$3->save();
-
-
 		$pesan = Yoga::suksesFlash('$1 baru berhasil diupdate');
 		return redirect('$2')->withPesan($pesan);
 	}
@@ -826,7 +820,6 @@ snippet template_method
 		$rules = [
 			'${5:data}'           => '${6:required}',
 		];
-		
 		$validator = \Validator::make($data, $rules, $messages);
 		
 		if ($validator->fails())
