@@ -769,7 +769,7 @@ snippet r
 	return ${1}
 snippet dd
 	dd( ${1} )${2}
-snippet template_method
+snippet template_method w
 	use App\\${1:$1};
 	use Input;
 	use App\Yoga;
@@ -792,7 +792,7 @@ snippet template_method
 			return $this->valid( Input::all() );
 		}
 		$$3       = new $1;
-		$$3->${4} = $request->$4;
+		// Edit disini untuk simpan data
 		$$3->save();
 		$pesan = Yoga::suksesFlash('$1 baru berhasil dibuat');
 		return redirect('$2')->withPesan($pesan);
@@ -802,7 +802,7 @@ snippet template_method
 			return $this->valid( Input::all() );
 		}
 		$$3     = $1::find($id);
-		$$3->$4 = $request->$4;
+		// Edit disini untuk ubah data
 		$$3->save();
 		$pesan = Yoga::suksesFlash('$1 baru berhasil diupdate');
 		return redirect('$2')->withPesan($pesan);
@@ -817,7 +817,7 @@ snippet template_method
 			'required' => ':attribute Harus Diisi',
 		];
 		$rules = [
-			'${5:data}'           => '${6:required}',
+			'${4:data}'           => '${5:required}',
 		];
 		$validator = \Validator::make($data, $rules, $messages);
 		
