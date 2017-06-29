@@ -889,28 +889,42 @@ snippet wbr
 	<wbr />
 snippet laratable
 	<div class="table-responsive">
-		<table class="table table-hover table-condensed">
+		<table class="table table-hover table-condensed table-bordered">
 			<thead>
 				<tr>
 					<th>${1}</th>
 				</tr>
 			</thead>
 			<tbody>
-				@if($${2}->count() > 0)
+				@if($${2:model}->count() > 0)
 					@foreach($$2 as $${3})
 						<tr>
 							<td>{{ $$3->${4} }}</td>
+							<td nowrap class="autofit">
+								{!! Form::open(['url' => '$2/' . $$3->id, 'method' => 'delete']) !!}
+									<a class="btn btn-warning btn-sm" href="{{ url('$2/' . $$3->id . '/edit') }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>
+									<button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus {{ $3->id }} - {{ $3->${5} }} ?')" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</button>
+								{!! Form::close() !!}
+							</td>
 						</tr>
 					@endforeach
 				@else
 					<tr>
-						<td class="text-center" colspan="">Tidak Ada Data Untuk Ditampilkan :p</td>
+						<td colspan="${6}">
+							{!! Form::open(['url' => '$2/imports', 'method' => 'post', 'files' => 'true']) !!}
+								<div class="form-group">
+									{!! Form::label('file', 'Data tidak ditemukan, upload data?') !!}
+									{!! Form::file('file') !!}
+									{!! Form::submit('Upload', ['class' => 'btn btn-primary', 'id' => 'submit']) !!}
+								</div>
+							{!! Form::close() !!}
+						</td>
 					</tr>
 				@endif
 			</tbody>
 		</table>
 	</div>
-	${5}
+	${6}
 snippet form-group
 	<div class="form-group" @if($errors->has('$1')) class="has-error" @endif>
 	  {!! Form::label('${1}', '${2}') !!}

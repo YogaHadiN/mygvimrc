@@ -740,7 +740,7 @@ snippet db "query builder"
 snippet all "Input::all()"
 	return Input::all(); ${1}
 snippet redirect
-	$pesan = Yoga::${1:gagal}Flash('${2}');
+	$pesan = Yoga::${1:gagal}Flash(${2});
 	return redirect(${3})${4:->back()}->withPesan($pesan);
 snippet transact
 	DB::beginTransaction();
@@ -769,3 +769,76 @@ snippet r
 	return ${1}
 snippet dd
 	dd( ${1} )${2}
+snippet template_method
+	use App\\${1:$1};
+	use Input;
+	use App\Yoga;
+	use DB;
+	public function index(){
+		$${2:$2} = $1::all();
+		return view('$2.index', compact(
+			'$2'
+		));
+	}
+	public function create(){
+		return view('$2.create');
+	}
+	public function edit($id){
+		$${3:model} = $1::find($id);
+		return view('$2.edit', compact('$3'));
+	}
+	public function store(Request $request){
+		if ($this->valid( Input::all() )) {
+			return $this->valid( Input::all() );
+		}
+
+		$$3                    = new $1;
+		$$3->${4}           = $request->$4;
+		$$3->save();
+
+
+		$pesan = Yoga::suksesFlash('$1 baru berhasil dibuat');
+		return redirect('$2')->withPesan($pesan);
+	}
+	public function update($id, Request $request){
+		if ($this->valid( Input::all() )) {
+			return $this->valid( Input::all() );
+		}
+
+		$$3     = $1::find($id);
+		$$3->$4 = $request->$4;
+		$$3->save();
+
+
+		$pesan = Yoga::suksesFlash('$1 baru berhasil diupdate');
+		return redirect('$2')->withPesan($pesan);
+	}
+	public function destroy($id){
+		$1::destroy($id);
+		$pesan = Yoga::suksesFlash('$1 berhasil dihapus');
+		return redirect('$2')->withPesan($pesan);
+	}
+	
+	private function valid( $data ){
+		$messages = [
+			'required' => ':attribute Harus Diisi',
+		];
+		$rules = [
+			'${5:data}'           => '${6:required}',
+		];
+		
+		$validator = \Validator::make($data, $rules, $messages);
+		
+		if ($validator->fails())
+		{
+			return \Redirect::back()->withErrors($validator)->withInput();
+		}
+	}${7}
+snippet r
+	return ${1}
+snippet dd
+	dd( ${1} )${2:;}
+snippet find
+	$${1:model} = ${2:Model}::find( ${3:$id} );
+snippet destroy
+	$${1:Model}::destroy( ${2:$id} );
