@@ -1,7 +1,7 @@
 set nocompatible              " We want the latest Vim Settings/Option
 set wrap
 set linebreak
-set guifont=Monospace\ 10
+set guifont=Menlo:h14
 set showbreak=------->>>>>
 let mapleader=","
 
@@ -12,7 +12,7 @@ filetype plugin indent on
 set ts=4 sts=4 sw=4 noexpandtab
 
 set noerrorbells visualbell t_vb=    "Hilangkan suara error Bell
-so /etc/vim/plugins.vim
+so ~/mygvimrc/plugins.vim
 syntax enable
 set backspace=indent,eol,start						"Make backspace works like other editor
 set number								"aktifkan line number
@@ -31,8 +31,8 @@ set incsearch
 "let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
-set guifont=Lucida_Console:h11
-set guifont=Monospace\ 10
+" set guifont=Lucida_Console:h11
+" set guifont=Monospace:h11
 set guioptions-=e "Jangan munculkan GUI tabs
 " Hilangkan scroll bar di kanan dan di kiri
 set guioptions-=l
