@@ -1,8 +1,14 @@
 set nocompatible              " We want the latest Vim Settings/Option
 set wrap
 set linebreak
+set autoindent
+set smartindent
+set wrap
+set breakindent
+set wrapmargin=0
+set textwidth=0
 set guifont=Menlo:h14
-set showbreak=------->>>>>
+" set showbreak=------->>>>>
 let mapleader=","
 
 autocmd BufNewFile,BufRead *.blade.php setlocal ft=html
