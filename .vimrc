@@ -111,7 +111,7 @@ map <Leader>w H<Plug>(easymotion-w)
 " Buat supaya tekan tombol escape lebih mudah
 imap jj <esc><esc><esc>
 " Buat supaya membuka Plugin lebih mudah
-nmap <Leader>ep :e /etc/vim/plugins.vim<cr>
+nmap <Leader>ep :e ~/mygvimrc/plugins.vim<cr>
 "buat supaya melebarkan kolom window split lebih mudah
 nmap <C-v> :vertical resize +5<cr>
 "buka file yang aktif ini di Google Chrome berguna untuk ngetes file html
