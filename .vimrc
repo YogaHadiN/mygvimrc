@@ -1,4 +1,4 @@
-set nocompatible              " We want the latest Vim Settings/Option
+iet nocompatible              " We want the latest Vim Settings/Option
 set wrap
 set linebreak
 set autoindent
@@ -60,14 +60,21 @@ set encoding=utf-8 "Selalu tunjukkan encoding"
 
 " Buat singkatn untuk generate model / controller 
 abbrev gm !php artisan make:model
+abbrev gf !php artisan migrate:refresh --seed
+abbrev gprov !php artisan make:provider
 abbrev gc !php artisan make:controller
 abbrev gmig !php artisan make:migration
+abbrev gmid !php artisan make:middleware
 abbrev gs !php artisan make:seeder
 abbrev ar !php artisan make:
 abbrev ds !find ./ -type f -name "\.*sw[klmnop]" -delete
-abbrev gga !git add -A
+abbrev gga !git add .
 abbrev ggc !git commit -m "
 abbrev ggp !git push
+abbrev vgrep vimgrep /JFactory/ ./app/**/*.*
+abbrev gup args **/*.* 
+abbrev gupp argdo %s/foo/bar/g
+abbrev mview !cp -a ~/Sites/emr/resources/views/daftars/. ~/Sites/emr/resources/views/
 
 "Bikin supaya gampang mengedit vimrc
 " ------------- Mtabedit $MYVIMRCapping ---------------"
@@ -80,6 +87,8 @@ imap <C-v> <C-r><C-o>+
 
 "Bikin mempermudah memblok 1 method
 nmap <Leader>vm Vf{%
+"Tutup semua split window kecuali window yang aktif
+nmap <Leader>oo :only<cr>
 "Bikin mempermudah yank 1 method
 nmap <Leader>ym Vf{%y
 "Bikin edit vimrc
@@ -110,6 +119,10 @@ xmap ga <Plug>(EasyAlign)
 map <Leader>w H<Plug>(easymotion-w)
 " Buat supaya tekan tombol escape lebih mudah
 imap jj <esc><esc><esc>
+" next matching untuk vimgrep dan arg
+nmap <Leader>nn :cnext<cr>zz
+" previous matching untuk vimgrep dan arg
+nmap <Leader>pp :cprevious<cr>zz
 " Buat supaya membuka Plugin lebih mudah
 nmap <Leader>ep :e ~/mygvimrc/plugins.vim<cr>
 "buat supaya melebarkan kolom window split lebih mudah
@@ -124,11 +137,21 @@ nmap :bn :BufSurfForward<cr>
 nmap <Leader>qq :bd<cr>
 " Tutup semua buffer
 nmap <Leader>qa :bufdo bd!<cr>
-" buat supaya gampang edit td tabel
-nmap <Leader>nn yypwwwcit
 " Buat supaya td di laravel bisa langsung fokus di {{ $variable ->(fokus) }}
 nmap <Leader>nd yypwwwwwwcw
 nmap <Leader>bl :set ft=blade.html<cr>
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 "Aktifkan snippet javascript
 nmap <Leader>js :set ft=.js<cr>
@@ -139,6 +162,7 @@ nmap <Leader>d "_d
 
 "Ignore folder berikut dalam pencarian
 set wildignore+=*/vendor/**
+set wildignore+=*/node_modules/**
 set wildignore+=*/public/forum/**
 "Buat Ag hanya membaca dari root directory
 
@@ -166,6 +190,22 @@ inoremap <C-j> <Esc>:m .+1<CR>==gi
 inoremap <C-k> <Esc>:m .-2<CR>==gi
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
+
+" Perintah untuk mencari kata dalam visual selection
+function! RangeSearch(direction)
+  call inputsave()
+  let g:srchstr = input(a:direction)
+  call inputrestore()
+  if strlen(g:srchstr) > 0
+    let g:srchstr = g:srchstr.
+          \ '\%>'.(line("'<")-1).'l'.
+          \ '\%<'.(line("'>")+1).'l'
+  else
+    let g:srchstr = ''
+  endif
+endfunction
+vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
+vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
 
 
 " ------------- Plugins ---------------"
@@ -205,6 +245,7 @@ augroup autosourcing
 	autocmd BufWritePost .vimrc source %
 augroup END
 
+autocmd filetype crontab setlocal nobackup nowritebackup
 
 " ------------- Konfigurasi untuk pdv ---------------"
 let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
@@ -275,3 +316,14 @@ nnoremap <Leader>d :call pdv#DocumentWithSnip()<CR>
 " # mencari kata sebelumnya yang sama dengan kata di bawah kursor
 " '. kembali ke terakhir kali teks diedit
 " ; mengulangi yang dilakukan pencarian karakter dengan f
+" @m : membuat parameter untuk controller saat update atau create data
+" @g : membuat parameter untuk migration
+" @n : membuat parameter nullable pada parameter yang sudah ada.
+" @a : membuat array dari table
+" @c : membuat input get construct dari private variable
+" @i : merubah input get menjadi this->input di function inputData
+" Mencari file dan mengupdate nya :
+" 1. :grep <search term>
+" 2. :cdo %s/<search term>/<replace term>/gc
+" 3. (If you want to save the changes in all files) :cdo update
+" cari subdirectory : grep -rl "string" /path

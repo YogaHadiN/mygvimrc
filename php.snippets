@@ -738,7 +738,7 @@ snippet Inp "Input::get('param')"
 snippet db "query builder"
 	$${1:periksas } = DB::select($${2:query });${3}
 snippet all "Input::all()"
-	return Input::all(); ${1}
+	dd(Input::all()); ${1}
 snippet redirect
 	$pesan = Yoga::${1:gagal}Flash(${2});
 	return redirect(${3})${4:->back()}->withPesan($pesan);

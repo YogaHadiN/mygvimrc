@@ -26,14 +26,14 @@ snippet tab
 
 	  <!-- Nav tabs -->
 	  <ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#${1}" aria-controls="${1}" role="tab" data-toggle="tab">${2}</a></li>
-		<li role="presentation"><a href="#${4}" aria-controls="${4}" role="tab" data-toggle="tab">${5}</a></li>
+		<li role="presentation" class="active"><a href="#${1}" aria-controls="$1" role="tab" data-toggle="tab">${2}</a></li>
+		<li role="presentation"><a href="#${3}" aria-controls="$3" role="tab" data-toggle="tab">${4}</a></li>
 	  </ul>
 
 	  <!-- Tab panes -->
 	  <div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="${1}">${3}</div>
-		<div role="tabpanel" class="tab-pane" id="${4}">${6}</div>
+		<div role="tabpanel" class="tab-pane active" id="$1">${5}</div>
+		<div role="tabpanel" class="tab-pane" id="$3">${6}</div>
 	  </div>
 
 	</div>
@@ -1628,11 +1628,15 @@ snippet rcfg
 snippet Form-submit
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<button class="btn btn-success btn-block" type="button" onclick='dummySubmit(this);return false;'>Submit</button>
+			@if(isset($update))
+				<button class="btn btn-success btn-block" type="button" onclick='dummySubmit(this);return false;'>Update</button>
+			@else
+				<button class="btn btn-success btn-block" type="button" onclick='dummySubmit(this);return false;'>Submit</button>
+			@endif
 			{!! Form::submit('Submit', ['class' => 'btn btn-success hide', 'id' => 'submit']) !!}
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<a class="btn btn-danger btn-block" href="{{ url('home') }}">Cancel</a>
+			<a class="btn btn-danger btn-block" href="{{ url('home/${1}') }}">Cancel</a>
 		</div>
 	</div>
 	<script type="text/javascript" charset="utf-8">
@@ -1642,6 +1646,7 @@ snippet Form-submit
 			}
 		}
 	</script>
+
 snippet panel
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -1753,3 +1758,21 @@ snippet @ifelse
 	@else
 		${3}
 	@endif
+snippet bs-modal
+	<div class="modal fade" id="${1}" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">${2}</h4>
+		  </div>
+		  <div class="modal-body">
+			${3}
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
